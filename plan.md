@@ -57,13 +57,8 @@ EuropaProcessor.getJavaProcessor(){
 
 ### EuropaRouteBuilder.js
 ```javascript
-const DefaultCamelContextClass = Java.type(
-  "org.apache.camel.impl.DefaultCamelContext"
-);
+
 const RouteBuilderClass = Java.type("org.apache.camel.builder.RouteBuilder");
-
-const camelContext = new DefaultCamelContextClass();
-
 const internalEuropaRouteBuilder = Java.extend(RouteBuilderClass);
 
 const create = (config)=>{ 
