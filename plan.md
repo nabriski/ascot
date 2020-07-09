@@ -33,9 +33,21 @@ EuropaProcessor extends Processor{
 ```javascript
 EuropaProcessor = {};
 EuropaProcessor.init = (processor)=>{
+
   this.exchanges = new Java.type("ConcurrentHashMap<String,Exchange>");
   this.port = //generate random port;
   this.javaProcessor = new Java.type("EuropaProcessor")(this.port,this.exchanges);
+  this.processorPromise = processorPromise;
+  
+  responder.connect('tcp://localhost:'+port');
+  responder.on('message', function(exchangeId) {
+    const ex = this.exchanges.get(exchangeId.toString());
+    const response = await processor(ex);
+  });
+  
 }
 
+EuropaProcessor.getJavaProcessor(){
+  return this.javaProcessor;
+}
 ```
