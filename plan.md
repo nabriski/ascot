@@ -43,7 +43,7 @@ EuropaProcessor.init = (processor)=>{
   this.processorPromise = processorPromise;
   
   responder.connect('tcp://localhost:'+port');
-  responder.on('message', function(exchangeId) {
+  responder.on('message', async function(exchangeId) {
     const ex = this.exchanges.get(exchangeId.toString());
     const response = await processor(ex);
   });
