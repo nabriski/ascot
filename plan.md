@@ -67,7 +67,7 @@ const camelContext = new DefaultCamelContextClass();
 const internalEuropaRouteBuilder = Java.extend(RouteBuilderClass);
 
 const create = (config)=>{ 
-  return new EuropaRouteBuilder({
+  const route =  new EuropaRouteBuilder({
     configure: config,
     processor: function(processor){
       const eProc = Object.create(EuropaProcessor);
@@ -75,6 +75,7 @@ const create = (config)=>{
       Java.super(route).processor(eProc.getJavaProcessor());
     }
   });
+  return route;
 }
 
 ```
