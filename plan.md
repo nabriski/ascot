@@ -31,6 +31,9 @@ EuropaProcessor extends Processor{
 ```
 ### EuropaProcessor.js
 ```javascript
+const zmq = require('zmq')
+  , responder = zmq.socket('rep');
+  
 EuropaProcessor = {};
 EuropaProcessor.init = (processor)=>{
 
@@ -50,4 +53,9 @@ EuropaProcessor.init = (processor)=>{
 EuropaProcessor.getJavaProcessor(){
   return this.javaProcessor;
 }
+```
+
+### EuropaRouteBuilder.js
+```javascript
+
 ```
