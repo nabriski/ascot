@@ -1,12 +1,13 @@
 const zmq = require('zeromq')
   , responder = zmq.socket('rep')
-  , HashMapClass = Java.type("java.util.concurrent.ConcurrentHashMap");//<String,Exchange>
+  , HashMapClass = Java.type("java.util.concurrent.ConcurrentHashMap")//<String,Exchange>
+  , getPort = require('get-port');
 
 EuropaProcessor = {};
-EuropaProcessor.init = (processor)=>{
+EuropaProcessor.init = async (processor)=>{
 
   this.exchanges = new HashMapClass();
-  this.port = //generate random port;
+  this.port = await getPort();
   this.javaProcessor = new Java.type("EuropaProcessor")(this.port,this.exchanges);
   this.processorPromise = processorPromise;
   
