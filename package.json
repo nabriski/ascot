@@ -1,0 +1,22 @@
+{
+  "name": "europa",
+  "version": "1.0.0",
+  "description": "Apache Camel in Node over GraalVM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nabriski/europa.git"
+  },
+  "author": "nabriski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nabriski/europa/issues"
+  },
+  "homepage": "https://github.com/nabriski/europa#readme",
+  "dependencies": {
+    "zeromq": "^5.2.0"
+  }
+}
