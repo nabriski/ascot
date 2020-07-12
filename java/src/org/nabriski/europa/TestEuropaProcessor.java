@@ -21,7 +21,7 @@ public class TestEuropaProcessor {
           ZContext context = new ZContext();
 
           // Socket to talk to clients
-          ConcurrentHashMap<String, Exchange> exchanges = new ConcurrentHashMap<String, Exchange>();
+          ConcurrentHashMap exchanges = new ConcurrentHashMap();
           EuropaProcessor p = new EuropaProcessor(sendPort,receivePort, exchanges);
 
           Thread thread = new Thread() {
@@ -42,7 +42,7 @@ public class TestEuropaProcessor {
           receiver.bind("tcp://*:"+sendPort);
           String key = receiver.recvStr(0);
           assertTrue(key.length() > 0);
-          Exchange e = exchanges.get(key);
+          Exchange e = (Exchange)exchanges.get(key);
           assertNotNull(e);
           assertTrue(e instanceof MockExchange);
           receiver.close();

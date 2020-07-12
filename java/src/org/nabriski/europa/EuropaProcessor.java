@@ -16,7 +16,7 @@ class EuropaProcessor implements Processor {
     int sendPort,receivePort;
     ConcurrentHashMap<String,Exchange> exchanges;
 
-    public EuropaProcessor(int sendPort, int receivePort,ConcurrentHashMap<String,Exchange> exchanges){
+    public EuropaProcessor(int sendPort, int receivePort,ConcurrentHashMap exchanges){
       this.context = new ZContext();
       this.sendPort = sendPort;
       this.receivePort = receivePort;
