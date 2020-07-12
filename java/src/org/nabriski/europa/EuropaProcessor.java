@@ -13,12 +13,13 @@ import org.zeromq.ZMQ.Socket;
 class EuropaProcessor implements Processor {
 
     ZContext context;
-    String channelId;
+    int sendPort,receivePort;
     ConcurrentHashMap<String,Exchange> exchanges;
 
-    public EuropaProcessor(ZContext context,String channelId,ConcurrentHashMap<String,Exchange> exchanges){
-      this.context = context;
-      this.channelId = channelId;
+    public EuropaProcessor(int sendPort, int receivePort,ConcurrentHashMap<String,Exchange> exchanges){
+      this.context = new ZContext();
+      this.sendPort = sendPort;
+      this.receivePort = receivePort;
       this.exchanges = exchanges;
     }
      @Override
@@ -29,12 +30,12 @@ class EuropaProcessor implements Processor {
       this.exchanges.put(key,e);
 
       Socket xmitter = context.createSocket(SocketType.PAIR);
-      xmitter.connect("inproc://"+this.channelId+"-key");
+      xmitter.connect("tcp://*:"+sendPort);
       xmitter.send(key, 0);
       xmitter.close();     
       
       Socket receiver = context.createSocket(SocketType.PAIR);
-      receiver.bind("inproc://"+this.channelId+"-done");
+      receiver.bind("tcp://*:"+receivePort);
       receiver.recv(0);
       receiver.close();
       
