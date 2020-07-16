@@ -15,7 +15,6 @@ EuropaProcessor.init = async (processorPromise,sendPort,receivePort)=>{
   const responder = zmq.socket('pair')
   responder.connect('tcp://0.0.0.0:'+this.sendPort);
   responder.on('message', async (exchangeId)=>{
-    console.log("got message")
     const ex = this.exchanges.get(exchangeId.toString());
     const response = await processorPromise(ex);
     const xmitter = zmq.socket('pair')
