@@ -10,7 +10,7 @@ import org.zeromq.ZContext;
 import org.zeromq.ZMQ.Socket;
 
 
-class EuropaProcessor implements Processor {
+public class EuropaProcessor implements Processor {
 
     ZContext context;
     int sendPort,receivePort;
