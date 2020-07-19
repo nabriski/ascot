@@ -21,6 +21,11 @@ public class EuropaProcessor implements Processor {
       this.sendPort = sendPort;
       this.receivePort = receivePort;
     }
+
+    public Processor processor(){
+      return this;
+    }
+
      @Override
     public void process(Exchange e) throws Exception {
       
