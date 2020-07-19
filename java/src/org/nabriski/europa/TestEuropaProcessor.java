@@ -3,8 +3,6 @@ package org.nabriski.europa;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.camel.Exchange;
 import org.junit.jupiter.api.Test;
 import org.zeromq.SocketType;
@@ -21,8 +19,7 @@ public class TestEuropaProcessor {
           ZContext context = new ZContext();
 
           // Socket to talk to clients
-          ConcurrentHashMap exchanges = new ConcurrentHashMap();
-          EuropaProcessor p = new EuropaProcessor(sendPort,receivePort, exchanges);
+          EuropaProcessor p = new EuropaProcessor(sendPort,receivePort);
 
           Thread thread = new Thread() {
 
@@ -42,7 +39,7 @@ public class TestEuropaProcessor {
           receiver.bind("tcp://*:"+sendPort);
           String key = receiver.recvStr(0);
           assertTrue(key.length() > 0);
-          Exchange e = (Exchange)exchanges.get(key);
+          Exchange e = (Exchange)EuropaProcessor.exchanges.get(key);
           assertNotNull(e);
           assertTrue(e instanceof MockExchange);
           receiver.close();

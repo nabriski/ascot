@@ -14,20 +14,19 @@ public class EuropaProcessor implements Processor {
 
     ZContext context;
     int sendPort,receivePort;
-    ConcurrentHashMap<String,Exchange> exchanges;
+    public static ConcurrentHashMap<String,Exchange> exchanges = new ConcurrentHashMap<String,Exchange>();
 
-    public EuropaProcessor(int sendPort, int receivePort,ConcurrentHashMap exchanges){
+    public EuropaProcessor(int sendPort, int receivePort){
       this.context = new ZContext();
       this.sendPort = sendPort;
       this.receivePort = receivePort;
-      this.exchanges = exchanges;
     }
      @Override
     public void process(Exchange e) throws Exception {
-    
+      
       String key = generateKey();
-      //put Exchange in some concurrent hashmap
-      this.exchanges.put(key,e);
+       //put Exchange in some concurrent hashmap
+      EuropaProcessor.exchanges.put(key,e);
 
       Socket xmitter = context.createSocket(SocketType.PAIR);
       xmitter.connect("tcp://*:"+sendPort);
