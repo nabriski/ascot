@@ -6,12 +6,15 @@ const RouteBuilderClass = Java.type("org.apache.camel.builder.RouteBuilder");
 const camelContext = new DefaultCamelContextClass();
 
 const MyRouteClass = Java.extend(RouteBuilderClass);
-const EuropaWrapper = require("./EuropaWrapper");
+const ProcessorWrapper = require("./ProcessorWrapper");
+const request = require("superagent");
 
 const start = async ()=>{
-  const wrapper = Object.create(EuropaWrapper);
+  const wrapper = Object.create(ProcessorWrapper);
   const procFunc = async (exchange)=>{
-    exchange.getMessage().setBody("yo ho ho !!!!");
+    const resp = await request.get('http://api.icndb.com/jokes/random').accept('application/json');
+    const str = `${resp.body.value.joke}`;
+    exchange.getMessage().setBody(str);
     return;
   }
   await wrapper.init(procFunc);
@@ -20,7 +23,7 @@ const start = async ()=>{
     configure: function () {
       const inst = Java.super(route);
       inst
-        .from("timer://foo?fixedRate=true&period=3000")
+        .from("timer://foo?fixedRate=true&period=10000")
         .process(
           wrapper.processor()
         )

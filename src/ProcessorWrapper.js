@@ -2,8 +2,8 @@ const getPort = require('get-port');
 const express = require('express')
 
 
-EuropaWrapper = {};
-EuropaWrapper.init = async (processorPromise)=>{
+ProcessorWrapper = {};
+ProcessorWrapper.init = async (processorPromise)=>{
 
   this.app = express()
   const port =     await getPort();
@@ -16,7 +16,7 @@ EuropaWrapper.init = async (processorPromise)=>{
     await processorPromise(ex);
     res.end('done')
   })
-  this.app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+  this.app.listen(port, () => {})
   /*this.receivePort =  await getPort();
   const EuropaProcessorClass = Java.type("org.nabriski.europa.EuropaProcessor");
   this.processor = new EuropaProcessorClass(this.sendPort,this.receivePort);
@@ -43,12 +43,12 @@ EuropaWrapper.getReceivePort = ()=>{
   return this.receivePort;
 }
 */
-EuropaWrapper.processor = ()=>{
+ProcessorWrapper.processor = ()=>{
   return this.processor.processor()
 }
 
-EuropaWrapper.close = ()=>{
+ProcessorWrapper.close = ()=>{
   return this.app.close();
 }
 
-module.exports = EuropaWrapper;
+module.exports = ProcessorWrapper;
