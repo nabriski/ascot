@@ -20,12 +20,12 @@ const start = async ()=>{
     configure: function () {
       const inst = Java.super(route);
       inst
-        .from("timer://foo?period=3&repeatCount=5")
+        .from("timer://foo?fixedRate=true&period=3000")
         .process(
           wrapper.processor()
         )
         .log("${body}")
-        .to("direct:null");
+        .to("file:output");
     },
   });
   camelContext.addRoutes(route);

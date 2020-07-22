@@ -1,25 +1,24 @@
 package org.nabriski.europa;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.zeromq.SocketType;
-import org.zeromq.ZContext;
-import org.zeromq.ZMQ.Socket;
 
 
 public class EuropaProcessor implements Processor {
 
-    ZContext context;
-    int sendPort,receivePort;
+    int port;
     public static ConcurrentHashMap<String,Exchange> exchanges = new ConcurrentHashMap<String,Exchange>();
 
-    public EuropaProcessor(int sendPort, int receivePort){
-      this.context = new ZContext();
-      this.sendPort = sendPort;
-      this.receivePort = receivePort;
+    public EuropaProcessor(int port){
+      this.port = port;
     }
 
     public Processor processor(){
@@ -32,17 +31,13 @@ public class EuropaProcessor implements Processor {
       String key = generateKey();
        //put Exchange in some concurrent hashmap
       EuropaProcessor.exchanges.put(key,e);
+      HttpClient client = HttpClient.newHttpClient();
+      HttpRequest request = HttpRequest.newBuilder()
+          .uri(URI.create("http://localhost:"+this.port+"/"+key))
+          .build();
 
-      Socket xmitter = context.createSocket(SocketType.PAIR);
-      xmitter.connect("tcp://*:"+sendPort);
-      xmitter.send(key, 0);
-      xmitter.close();     
-      
-      Socket receiver = context.createSocket(SocketType.PAIR);
-      receiver.bind("tcp://*:"+receivePort);
-      receiver.recv(0);
-      receiver.close();
-      
+      HttpResponse<String> response =
+            client.send(request, BodyHandlers.ofString());
     }
 
     private String generateKey() {
