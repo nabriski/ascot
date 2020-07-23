@@ -1,7 +1,5 @@
 const {CamelContext,createRouteBuilder,createProcessorWrapper} = require("./index");
-
 const camelContext = new CamelContext();
-
 const request = require("superagent");
 
 const start = async ()=>{
