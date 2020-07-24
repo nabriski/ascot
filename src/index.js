@@ -11,9 +11,9 @@ module.exports.createRouteBuilder = (conf)=>{
 
 module.exports.ProcessorWrapper = ProcessorWrapper = require("./ProcessorWrapper");
 
-module.exports.createProcessorWrapper = async (procPromise)=>{
+module.exports.createProcessor = async (procPromise)=>{
     const wrapper = Object.create(ProcessorWrapper);
     await wrapper.init(procPromise);
-    return wrapper;
+    return wrapper.processor();
 }
   

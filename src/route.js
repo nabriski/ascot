@@ -1,4 +1,4 @@
-const {CamelContext,createRouteBuilder,createProcessorWrapper} = require("./index");
+const {CamelContext,createRouteBuilder,createProcessor} = require("./index");
 const camelContext = new CamelContext();
 const request = require("superagent");
 
@@ -10,16 +10,14 @@ const start = async ()=>{
     exchange.getMessage().setBody(str);
     return;
   }
-  const wrapper = await createProcessorWrapper(procFunc);
+  const processor = await createProcessor(procFunc);
 
   const route = createRouteBuilder({
     configure: function () {
       const inst = Java.super(route);
       inst
         .from("timer://foo?fixedRate=true&period=10000")
-        .process(
-          wrapper.processor()
-        )
+        .process(processor)
         .log("${body}")
         .to("file:output");
     },
