@@ -2,7 +2,7 @@ const {CamelContext,createRouteBuilder,createProcessor} = require("./index");
 const camelContext = new CamelContext();
 const request = require("superagent");
 
-const start = async ()=>{
+(async ()=>{
 
   const procFunc = async (exchange)=>{
     const resp = await request.get('http://api.icndb.com/jokes/random').accept('application/json');
@@ -24,21 +24,4 @@ const start = async ()=>{
   });
   camelContext.addRoutes(route);
   camelContext.start();
-}
-
-start();
-/*
- 
-}
-*/
-
-
-//setTimeout(function () {}, 10000);
-/*
-const builder = new TRouteBuilderClass() {
-    public void configure() {
-        errorHandler(deadLetterChannel("mock:error"));
-
-        from("direct:a").to("direct:b");
-    }
-};*/
+})();

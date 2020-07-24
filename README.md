@@ -17,7 +17,7 @@ const {CamelContext,createRouteBuilder,createProcessor} = require("Europa");
 const camelContext = new CamelContext();
 const request = require("superagent");
 
-const start = async ()=>{
+(async ()=>{
 
   const procFunc = async (exchange)=>{
     const resp = await request.get('http://api.icndb.com/jokes/random').accept('application/json');
@@ -39,8 +39,6 @@ const start = async ()=>{
   });
   camelContext.addRoutes(route);
   camelContext.start();
-}
-
-start();
+})();
 
 ```
