@@ -1,12 +1,13 @@
 const getPort = require('get-port');
-const express = require('express')
+const express = require('express');
+const util = require('util');
 
 
 ProcessorWrapper = {};
-ProcessorWrapper.init = async (processorPromise)=>{
+ProcessorWrapper.init = async (processorPromise,_port)=>{
 
   this.app = express()
-  const port =     await getPort();
+  const port =    _port || await getPort();
   const EuropaProcessorClass = Java.type("org.nabriski.europa.EuropaProcessor");
   this.processor = new EuropaProcessorClass(port);
   this.processorPromise = processorPromise;
@@ -16,7 +17,9 @@ ProcessorWrapper.init = async (processorPromise)=>{
     await processorPromise(ex);
     res.end('done')
   })
-  this.app.listen(port, () => {})
+
+  const listen = util.promisify(this.app.listen.bind(this.app));
+  await listen(port);
 }
 
 ProcessorWrapper.processor = ()=>{
