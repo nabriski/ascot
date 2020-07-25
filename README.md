@@ -1,5 +1,6 @@
 # Ascot
 Apache Camel in Node over GraalVM
+![Image of Ascot Cigarette](/docs/ascot.jpg)
 
 ## Install
 
