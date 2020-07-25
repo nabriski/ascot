@@ -15,7 +15,7 @@ TBD
 
 ### Use With Node Processor
 ```javascript
-const {CamelContext,createRouteBuilder,createProcessor} = require("escot");
+const {CamelContext,createRouteBuilder,createProcessor} = require("ascot");
 const camelContext = new CamelContext();
 const request = require("superagent");
 
