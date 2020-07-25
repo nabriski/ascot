@@ -1,4 +1,4 @@
-# europa
+# Escot
 Apache Camel in Node over GraalVM
 
 ## Install

@@ -8,12 +8,12 @@ ProcessorWrapper.init = async (processorPromise,_port)=>{
 
   this.app = express()
   const port =    _port || await getPort();
-  const EuropaProcessorClass = Java.type("org.nabriski.europa.EuropaProcessor");
-  this.processor = new EuropaProcessorClass(port);
+  const EscotProcessorClass = Java.type("org.nabriski.escot.EscotProcessor");
+  this.processor = new EscotProcessorClass(port);
   this.processorPromise = processorPromise;
 
   this.app.get('/:key', async(req, res) => {
-    const ex = EuropaProcessorClass.getExchanges().get(req.params.key);
+    const ex = EscotProcessorClass.getExchanges().get(req.params.key);
     await processorPromise(ex);
     res.end('done')
   })

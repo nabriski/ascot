@@ -1,1 +1,1 @@
-javac -d build -cp "./lib/*" src/org/nabriski/europa/*
+javac -d build -cp "./lib/*" src/org/nabriski/escot/*
