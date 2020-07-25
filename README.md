@@ -1,4 +1,4 @@
-# Escot
+# Ascot
 Apache Camel in Node over GraalVM
 
 ## Install

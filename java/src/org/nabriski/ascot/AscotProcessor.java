@@ -1,11 +1,11 @@
-package org.nabriski.escot;
+package org.nabriski.ascot;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
-public class EscotProcessor extends EscotBridge implements Processor {
+public class AscotProcessor extends AscotBridge implements Processor {
 
-    public EscotProcessor(int port){
+    public AscotProcessor(int port){
         super(port);
     }
 
@@ -17,7 +17,7 @@ public class EscotProcessor extends EscotBridge implements Processor {
     public void process(Exchange e) throws Exception {
       String key = this.generateKey();
        //put Exchange in some concurrent hashmap
-      EscotBridge.exchanges.put(key,e);
+      AscotBridge.exchanges.put(key,e);
       this.sendToNode(key);
     }
 

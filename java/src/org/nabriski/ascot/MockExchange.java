@@ -1,4 +1,4 @@
-package org.nabriski.escot;
+package org.nabriski.ascot;
 
 import java.util.Map;
 

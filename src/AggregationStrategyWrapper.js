@@ -10,16 +10,16 @@ AggregationStrategyWrapper.init = async (processorPromise,_port)=>{
 
   this.app = express()
   const port =    _port || await getPort();
-  const EscotAggregationStrategyClass = Java.type("org.nabriski.escot.EscotAggregationStrategy");
-  this.aggregation= new EscotAggregationStrategyClass(port);
+  const AscotAggregationStrategyClass = Java.type("org.nabriski.ascot.AscotAggregationStrategy");
+  this.aggregation= new AscotAggregationStrategyClass(port);
   this.processorPromise = processorPromise;
 
   this.app.get('/:keyEx1/:keyEx2', async(req, res) => {
-    const ex1 = EscotAggregationStrategyClass.getExchanges().get(req.params.keyEx1);
-    const ex2 = EscotAggregationStrategyClass.getExchanges().get(req.params.keyEx2);
+    const ex1 = AscotAggregationStrategyClass.getExchanges().get(req.params.keyEx1);
+    const ex2 = AscotAggregationStrategyClass.getExchanges().get(req.params.keyEx2);
     const exRes = await processorPromise(ex1,ex2);
     const resKey = uuid();
-    if(exRes) EscotAggregationStrategyClass.getExchanges().put(resKey,exRes);
+    if(exRes) AscotAggregationStrategyClass.getExchanges().put(resKey,exRes);
 
     res.end(resKey);
   })

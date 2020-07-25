@@ -1,12 +1,12 @@
-package org.nabriski.escot;
+package org.nabriski.ascot;
 
 
 import org.apache.camel.AggregationStrategy;
 import org.apache.camel.Exchange;
 
-public class EscotAggregationStrategy extends EscotBridge implements AggregationStrategy {
+public class AscotAggregationStrategy extends AscotBridge implements AggregationStrategy {
 
-    public EscotAggregationStrategy(int port) {
+    public AscotAggregationStrategy(int port) {
         super(port);
     }
 
@@ -14,13 +14,13 @@ public class EscotAggregationStrategy extends EscotBridge implements Aggregation
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
 
       String oldKey = this.generateKey();
-      EscotBridge.exchanges.put(oldKey,oldExchange);
+      AscotBridge.exchanges.put(oldKey,oldExchange);
 
       String newKey = this.generateKey();
-      EscotBridge.exchanges.put(newKey,newExchange);
+      AscotBridge.exchanges.put(newKey,newExchange);
       String returnedExchangeKey = this.sendToNode(oldKey+"/"+newKey);
 
-      return EscotBridge.exchanges.get(returnedExchangeKey);
+      return AscotBridge.exchanges.get(returnedExchangeKey);
 
     }
 

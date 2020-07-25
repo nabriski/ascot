@@ -1,4 +1,4 @@
-package org.nabriski.escot;
+package org.nabriski.ascot;
 
 import java.io.IOException;
 import java.net.URI;
@@ -12,12 +12,12 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.apache.camel.Exchange;
 
-public class EscotBridge {
+public class AscotBridge {
 
     int port;
     public static ConcurrentMap<String, Exchange> exchanges = new ConcurrentHashMap<String, Exchange>();
 
-    public EscotBridge(int port) {
+    public AscotBridge(int port) {
         this.port = port;
     }
 
